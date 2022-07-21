@@ -1,51 +1,51 @@
-# auto-green
+#سبز خودکار
 
-[![Build Status](https://github.com/justjavac/auto-green/workflows/ci/badge.svg?branch=master)](https://github.com/justjavac/auto-green/actions)
+[![وضعیت ساخت](https://github.com/justjavac/auto-green/workflows/ci/badge.svg?branch=master)](https://github.com/justjavac/auto-green/actions )
 
-自动保持 GitHub 提交状态常绿。
+به طور خودکار وضعیت commit GitHub را همیشه سبز نگه دارید.
 
-> a commit a day keeps your girlfriend away.
+> یک تعهد در روز دوست دختر شما را دور نگه می دارد.
 
-## 原理
+## اصل
 
-使用 GitHub Actions 的定时任务功能，每隔一段时间自动执行 `git commit`，提交信息为 "a commit a day keeps your girlfriend away"，灵感来自知乎问题[在 GitHub 上保持 365 天全绿是怎样一种体验？](https://www.zhihu.com/question/34043434/answer/57826281)下某匿名用户的回答：
+از تابع زمان‌بندی‌شده وظایف GitHub Actions برای اجرای خودکار «تعهد git» در فواصل زمانی منظم استفاده کنید، و اطلاعات commit این است که «یک تعهد در روز دوست دختر شما را دور نگه می‌دارد»، با الهام از سؤال Zhihu [چگونه 365 روز را کاملا سبز نگه دارید در GitHub نوعی تجربه؟ ](https://www.zhihu.com/question/34043434/answer/57826281) پاسخ یک کاربر ناشناس:
 
-> 曾经保持了 200 多天全绿，但是冷落了女朋友，一直绿到现在。
+> بیش از 200 روز تمام سبز بود اما دوست دخترم را کنار گذاشت و تا الان سبز بوده است.
 
-有关 Github Action 的原理，可查看官方文档 [Github Action 简介](https://docs.github.com/cn/actions/learn-github-actions/introduction-to-github-actions)
+برای اصل Github Action، می‌توانید سند رسمی [معرفی اکشن Github] (https://docs.github.com/cn/actions/learn-github-actions/introduction-to-github-actions) را بررسی کنید.
 
-## 使用
+## استفاده کنید
 
-- 点右上角 **Use this template** 按钮复制本 GitHub 仓库，**:warning: 千万不要 Fork，因为 fork 项目的动态并不会让你变绿 :warning:**
-- 修改 [ci.yml 文件的第 7、8 行](https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L7-L8) 去掉前面的 `#` 号
-- 修改 [ci.yml 文件的第 19、20 行](https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L19-L20) 为自己的 GitHub 账号和昵称
-- (可选) 你可以通过修改 [ci.yml 文件的第 8 行](https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L8)来调整频率
+- روی دکمه **استفاده از این الگو** در گوشه سمت راست بالا کلیک کنید تا این مخزن گیت هاب را کپی کنید، **:warning: فورک نکنید، زیرا پویایی پروژه فورک شما را سبز نمی کند :warning:**
+- [خطوط 7 و 8 فایل ci.yml] (https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L7-L8) را برای حذف موارد قبلی تغییر دهید. علامت "#".
+- [خطوط 19، 20 فایل ci.yml] (https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L19-L20) را به GitHub خود تغییر دهید حساب و نام مستعار
+- (اختیاری) می توانید این کار را با تغییر [خط 8 فایل ci.yml] (https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L8) انجام دهید. فرکانس را تنظیم کنید
 
-计划任务语法有 5 个字段，中间用空格分隔，每个字段代表一个时间单位。
+دستور کار برنامه ریزی شده دارای 5 فیلد است که با فاصله از هم جدا شده اند که هر فیلد یک واحد زمانی را نشان می دهد.
 
-```plain
-┌───────────── 分钟 (0 - 59)
-│ ┌───────────── 小时 (0 - 23)
-│ │ ┌───────────── 日 (1 - 31)
-│ │ │ ┌───────────── 月 (1 - 12 或 JAN-DEC)
-│ │ │ │ ┌───────────── 星期 (0 - 6 或 SUN-SAT)
+``` دشت
+┌────────────── دقیقه (0 - 59)
+│ ┌────────────── ساعت (0 - 23)
+روز (1 - 31)
+│ │ │ ┌────────────── ماه (1 - 12 یا ژانویه تا دسامبر)
+│ │ │ │ ┌────────────── هفته هفته (0 - 6 یا SUN-SAT)
 │ │ │ │ │
 │ │ │ │ │
 │ │ │ │ │
 * * * * *
 ```
 
-每个时间字段的含义：
+معنی هر فیلد زمان:
 
-|符号   | 描述        | 举例                                        |
-| ----- | -----------| -------------------------------------------|
-| `*`   | 任意值      | `* * * * *` 每天每小时每分钟                  |
-| `,`   | 值分隔符    | `1,3,4,7 * * * *` 每小时的 1 3 4 7 分钟       |
-| `-`   | 范围       | `1-6 * * * *` 每小时的 1-6 分钟               |
-| `/`   | 每         | `*/15 * * * *` 每隔 15 分钟                  |
+|نماد | شرح | مثال |
+| ----- | -----------| ------------------------------ ------------|
+| `*` | هر مقدار | `* * * * *` هر ساعت در هر دقیقه از هر روز |
+| `,` | جداکننده مقدار | `1,3,4,7 * * * *` ساعتی 1 3 4 7 دقیقه |
+| `-` | محدوده | `1-6 * * * *` 1-6 دقیقه در هر ساعت |
+| `/` | هر | `*/15 * * * *` هر 15 دقیقه |
 
-**注**：由于 GitHub Actions 的限制，如果设置为 `* * * * *` 实际的执行频率为每 5 分执行一次。
+**نکته**: با توجه به محدودیت اکشن های گیت هاب، اگر روی "* * * * *" تنظیم شود، فرکانس اجرای واقعی هر 5 دقیقه است.
 
-## License
+## مجوز
 
-[auto-green](https://github.com/justjavac/auto-green) is released under the MIT License. See the bundled [LICENSE](./LICENSE) file for details.
+[auto-green](https://github.com/justjavac/auto-green) تحت مجوز MIT منتشر شده است. برای جزئیات به فایل همراه [LICENSE](./LICENSE) مراجعه کنید.
