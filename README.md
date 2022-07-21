@@ -1,51 +1,51 @@
-#سبز خودکار
+# Verde automático
 
-[![وضعیت ساخت](https://github.com/justjavac/auto-green/workflows/ci/badge.svg?branch=master)](https://github.com/justjavac/auto-green/actions )
+[![estado de compilación](https://github.com/justjavac/auto-green/workflows/ci/badge.svg?branch=master)](https://github.com/justjavac/auto-green/actions )
 
-به طور خودکار وضعیت commit GitHub را همیشه سبز نگه دارید.
+Mantenga automáticamente el estado de confirmación de GitHub siempre en verde.
 
-> یک تعهد در روز دوست دختر شما را دور نگه می دارد.
+> Un compromiso al día mantiene alejada a tu novia.
 
-## اصل
+## Original
 
-از تابع زمان‌بندی‌شده وظایف GitHub Actions برای اجرای خودکار «تعهد git» در فواصل زمانی منظم استفاده کنید، و اطلاعات commit این است که «یک تعهد در روز دوست دختر شما را دور نگه می‌دارد»، با الهام از سؤال Zhihu [چگونه 365 روز را کاملا سبز نگه دارید در GitHub نوعی تجربه؟ ](https://www.zhihu.com/question/34043434/answer/57826281) پاسخ یک کاربر ناشناس:
+Use la función del programador de tareas de GitHub Actions para ejecutar automáticamente un "compromiso de git" a intervalos regulares, y la información del compromiso es "un compromiso al día mantendrá alejada a su novia", inspirado en la pregunta de Zhihu [Cómo hacer que los 365 días sean completamente verdes, sigan adelante GitHub algún tipo de experiencia? ](https://www.zhihu.com/question/34043434/answer/57826281) Respuesta de un usuario anónimo:
 
-> بیش از 200 روز تمام سبز بود اما دوست دخترم را کنار گذاشت و تا الان سبز بوده است.
+> Estuvo todo verde durante más de 200 días, pero a mi novia se le cayó y ha sido verde hasta ahora.
 
-برای اصل Github Action، می‌توانید سند رسمی [معرفی اکشن Github] (https://docs.github.com/cn/actions/learn-github-actions/introduction-to-github-actions) را بررسی کنید.
+Para conocer los conceptos básicos de Github Action, puede consultar el documento oficial Introducción a Github Actions.
 
-## استفاده کنید
+## usar
 
-- روی دکمه **استفاده از این الگو** در گوشه سمت راست بالا کلیک کنید تا این مخزن گیت هاب را کپی کنید، **:warning: فورک نکنید، زیرا پویایی پروژه فورک شما را سبز نمی کند :warning:**
-- [خطوط 7 و 8 فایل ci.yml] (https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L7-L8) را برای حذف موارد قبلی تغییر دهید. علامت "#".
-- [خطوط 19، 20 فایل ci.yml] (https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L19-L20) را به GitHub خود تغییر دهید حساب و نام مستعار
-- (اختیاری) می توانید این کار را با تغییر [خط 8 فایل ci.yml] (https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L8) انجام دهید. فرکانس را تنظیم کنید
+- Haga clic en el botón **Usar esta plantilla** en la esquina superior derecha para copiar este repositorio de github, **: advertencia: no bifurque, porque la dinámica de su proyecto de bifurcación no se pondrá verde :advertencia:**
+- Cambie [líneas 7 y 8 del archivo ci.yml](https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L7-L8) para eliminar el archivo . la marca "#".
+- Cambie [líneas 19, 20 del archivo ci.yml](https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L19-L20) a su cuenta de GitHub y apodos
+- (opcional) Puede hacer esto cambiando [línea 8 del archivo ci.yml] (https://github.com/justjavac/auto-green/blob/master/.github/workflows/ci.yml#L8) dar Establecer la frecuencia
 
-دستور کار برنامه ریزی شده دارای 5 فیلد است که با فاصله از هم جدا شده اند که هر فیلد یک واحد زمانی را نشان می دهد.
+La agenda programada tiene 5 campos separados por espacios, cada campo representa una unidad de tiempo.
 
-``` دشت
-┌────────────── دقیقه (0 - 59)
-│ ┌────────────── ساعت (0 - 23)
-روز (1 - 31)
-│ │ │ ┌────────────── ماه (1 - 12 یا ژانویه تا دسامبر)
-│ │ │ │ ┌────────────── هفته هفته (0 - 6 یا SUN-SAT)
+``` llano
+┌──────────────── minutos (0 - 59)
+│ ┌──────────────── Horas (0 - 23)
+día (1 - 31)
+│ │ │ ┌──────────────── Mes (1 - 12 o enero a diciembre)
+│ │ │ │ ┌──────────────── Semana de la semana (0 - 6 o SUN-SAT)
 │ │ │ │ │
 │ │ │ │ │
 │ │ │ │ │
 * * * * *
 ```
 
-معنی هر فیلد زمان:
+El significado de cada campo de tiempo:
 
-|نماد | شرح | مثال |
+| símbolo | Descripción Ejemplo |
 | ----- | -----------| ------------------------------ ------------|
-| `*` | هر مقدار | `* * * * *` هر ساعت در هر دقیقه از هر روز |
-| `,` | جداکننده مقدار | `1,3,4,7 * * * *` ساعتی 1 3 4 7 دقیقه |
-| `-` | محدوده | `1-6 * * * *` 1-6 دقیقه در هر ساعت |
-| `/` | هر | `*/15 * * * *` هر 15 دقیقه |
+| ``*'' | Cualquier cantidad | `* * * * *` cada hora cada minuto de cada día |
+| `, ` | separador de valores | `1,3,4,7 * * * *` cada hora 1 3 4 7 minutos |
+| `-` | Gama | `1-6 * * * *` 1-6 minutos por hora |
+| `/` | Cada | `*/15 * * * *` cada 15 minutos |
 
-**نکته**: با توجه به محدودیت اکشن های گیت هاب، اگر روی "* * * * *" تنظیم شود، فرکانس اجرای واقعی هر 5 دقیقه است.
+**NOTA**: Debido al límite de acciones de GitHub, si se establece en "* * * * *", la frecuencia de ejecución real es cada 5 minutos.
 
-## مجوز
+## Licencia
 
-[auto-green](https://github.com/justjavac/auto-green) تحت مجوز MIT منتشر شده است. برای جزئیات به فایل همراه [LICENSE](./LICENSE) مراجعه کنید.
+[auto-green](https://github.com/justjavac/auto-green) se publica bajo la licencia MIT. Consulte el archivo adjunto [LICENCIA](./LICENCIA) para obtener más detalles.
